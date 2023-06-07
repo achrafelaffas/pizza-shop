@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="zxx" class="js">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="./images/favicon.png">
+    <!-- Page Title  -->
+    <title>Login | DashLite Admin Template</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" href="~/css/dashlite.css">
+</head>
+
+<body class="nk-body ui-rounder npc-default pg-auth">
+    <div class="nk-app-root">
+        <!-- main  -->
+        <div class="nk-main ">
+            <!-- wrap  -->
+            <div class="nk-wrap nk-wrap-nosidebar">
+                <!-- content  -->
+                <div class="nk-content ">
+                    @RenderBody()
+                </div>
+                <!-- wrap -->
+            </div>
+            <!-- content -->
+        </div>
+        <!-- main  -->
+    </div>
+    <!-- app-root -->
+    <!-- JavaScript -->
+    <!-- JavaScript -->
+    <script src="~/js/bundle.js"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="~/js/dashboard/bundle.js"></script>
+    <script src="~/js/dashboard/scripts.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

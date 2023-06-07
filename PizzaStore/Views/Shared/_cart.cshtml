@@ -1,0 +1,149 @@
+﻿@{
+    double total = 0;
+}
+
+<div class="row">
+    <div class="col col-lg-8 col-12">
+        <div class="card-inner-group">
+            <div class="card-inner p-0 table-container">
+                <table class="nk-tb-list nk-tb-ulist text-center">
+                    <thead>
+                        <tr class="nk-tb-item nk-tb-head bg-white sticky-header text-center">
+                            <th><span class="d-md-block d-none text-lg-start">Photo</span></th>
+                            <th><span class="sub-text">Name</span></th>
+                            <th>
+                                <span class="sub-text">Quantity</span>
+                            </th>
+                            <th><span class="sub-text">Total</span></th>
+                            <th>
+                                <a asp-action="ClearCart" asp-controller="Cart">
+                                    Clear All
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Items != null)
+                        {
+                            @foreach (var item in Model.Items)
+                            {
+                                string selector = "input" + item.Product.Id;
+                                <tr class="nk-tb-item">
+                                    <td>
+                                        <img height="70" class="d-md-block d-none " src="~/images/@item.Product.Photo" />
+                                    </td>
+                                    <td>
+                                        <b>@item.Product.Name</b>
+                                    </td>
+                                    <td style="width: 150px" class="mt-1">
+                                        @*<input type="number" id="@selector" class="form-control" value="@item.Quantity" />*@
+
+                                        <div class="form-control-wrap number-spinner-wrap">
+                                            <button class="btn btn-icon btn-outline-light number-spinner-btn number-minus" data-number="minus">
+                                                <em class="icon ni ni-minus"></em>
+                                            </button>
+                                            <input type="number" class="form-control number-spinner" id="@selector" value="@item.Quantity">
+                                            <button class="btn btn-icon btn-outline-light number-spinner-btn number-plus" data-number="plus">
+                                                <em class="icon ni ni-plus"></em>
+                                            </button>
+                                        </div>
+
+                                        <script>
+                                            document.getElementById("@selector").addEventListener('input', (event) => {
+                                                var cartValue = event.target.value;
+                                                var productId = @item.Product.Id;
+                                                var bodyFormData = new FormData()
+                                                bodyFormData.append("cartValue", cartValue)
+                                                bodyFormData.append("productId", productId)
+                                                if (cartValue >= 0 && cartValue <= 10) {
+                                                    axios.post('/Cart/ModifyQte', bodyFormData)
+                                                        .then(response => {
+                                                            console.log(response.data);
+                                                        })
+                                                        .catch(error => {
+                                                            console.error(error);
+                                                        });
+                                                }
+                                            });
+                                        </script>
+                                    </td>
+                                    <td>
+                                        @{
+                                            double result = item.Quantity * item.Product.Price;
+                                            total += result;
+                                        }
+                                        $@result
+                                    </td>
+                                    <td>
+                                        <a asp-action="RemoveFromCart" asp-controller="Cart" asp-route-id="@item.Product.Id">
+                                            <em class="icon ni ni-trash h5"></em>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-action="Index" asp-controller="Products">Add items.</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col col-lg-4 col-12">
+        <div class="card card-bordered mt-3 mt-md-0">
+            <div class="card-inner">
+                <div class="nk-iv-wg2">
+                    <div class="nk-iv-wg2-title">
+                        <h6 class="title">The sum up of your order <em class="icon ni ni-info text-primary"></em></h6>
+                    </div>
+                    <div class="nk-iv-wg2-text">
+                        <div class="nk-iv-wg2-amount ui-v2">My Cart</div>
+                        <ul class="nk-iv-wg2-list">
+                            <li>
+                                <span class="item-label">Subtotal</span><span class="item-value">
+                                    $@Math.Round(total, 2)
+                                </span>
+                            </li>
+                            <li>
+                                <span class="item-label">Tax</span><span class="item-value">
+                                    @{
+                                        double tax = Math.Round(total * 0.2, 2);
+                                    } $@tax
+                                </span>
+                            </li>
+                            <li><span class="item-label">Delivery</span><span class="item-value">Free</span></li>
+                            <li class="total">
+                                <span class="item-label">Total</span>
+                                <span class="item-value text-primary">
+                                    @{
+                                        double totall = total + tax;
+                                    } $@Math.Round(totall)
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nk-iv-wg2-cta">
+                        @if (total == 0)
+                        {
+                            <button disabled class="btn btn-primary btn-lg btn-block mb-1">Proceed</button>
+
+                        }
+                        else
+                        {
+                            <a asp-controller="CheckOut" asp-action="Index" class="btn btn-primary btn-lg btn-block mb-1">Proceed</a>
+
+                        }
+                        <a asp-controller="Products" asp-action="Index" class="btn btn-outline-primary btn-lg btn-block">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

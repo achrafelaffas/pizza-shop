@@ -1,0 +1,21 @@
+﻿.table-container {
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.side-checkout {
+    height: 70vh;
+}
+
+/*.header-content {
+    background-image: url('../images/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}*/

@@ -1,0 +1,179 @@
+﻿@model IEnumerable<PizzaStore.Models.Product>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+        <div class="row  g-gs">
+            @foreach (var item in Model)
+            {
+                string selector = "modal" + @item.Id;
+                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                    <div class="card card-bordered product-card">
+                        <div class="product-thumb">
+                            <a class="image-container" data-bs-toggle="modal" data-bs-target="#@selector" style="cursor: pointer">
+                                <img class="card-img-top" src="~/images/@item.Photo" />
+                            </a>
+                            <ul class="product-actions">
+                                <li><a id="@item.Id" style="cursor:pointer"><em class="icon ni ni-cart h3 text-white"></em></a></li>
+                            </ul>
+                        </div>
+                       
+                        <div class="card-inner text-center">
+
+                            <h5 class="product-title text-wrap">@Html.DisplayFor(modelItem => item.Name)</h5>
+                            <div class="product-price text-primary"><small class="text-muted del fs-13px">$40</small> $@Html.DisplayFor(modelItem => item.Price)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- .col -->
+
+
+                <script>
+                    document.getElementById(@item.Id).addEventListener('click', function () {
+                        var Id = @item.Id;
+                        var bodyFormData = new FormData()
+                        bodyFormData.append("Id", Id)
+                        axios.post('/Cart/AddToCart', bodyFormData)
+                            .then(response => {
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                    }
+                                })
+
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Added successfully'
+                                })
+                            })
+                            .catch(error => {
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                    }
+                                })
+
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Added successfully'
+                                })
+                            });
+                    });
+                </script>
+            }
+        </div><!-- .row -->
+    </div><!-- .container -->
+@foreach (var item in Model)
+{
+
+    string selector = "modal" + @item.Id;
+    string selector1 = "product" + @item.Id;
+
+    <div class="modal fade" tabindex="-1" id="@selector">
+        <div class="modal-dialog modal-lg w-100" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal Title</h5>
+                    <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="card-inner">
+                        <div class="row pb-5">
+                            <div class="col">
+                                <div class="product-info me-xxl-5">
+                                    <div class="container-fluid d-flex align-items-center justify-content-center mb-7" >
+                                        <img src="~/images/pizzas/@item.Photo" height="300" />
+                                    </div>
+                                    <h4 class="product-price text-primary">$@Html.DisplayFor(modelItem => item.Price) <small class="text-muted fs-14px">$60.00</small></h4>
+                                    <h2 class="product-title">@Html.DisplayFor(modelItem => item.Name)</h2>
+                                    <div class="product-excrept text-soft">
+                                        <p class="lead">@Html.DisplayFor(modelItem => item.Description)</p>
+                                    </div>
+                                </div><!-- .product-meta -->
+                                <div class="product-meta">
+                                    <ul class="d-flex flex-wrap ailgn-center g-2 pt-1">
+                                        @*<li class="w-140px">
+                                            <div class="form-control-wrap number-spinner-wrap">
+                                                <button class="btn btn-icon btn-outline-light number-spinner-btn number-minus" data-number="minus"><em class="icon ni ni-minus"></em></button>
+                                                <input type="number" class="form-control number-spinner" value="0">
+                                                <button class="btn btn-icon btn-outline-light number-spinner-btn number-plus" data-number="plus"><em class="icon ni ni-plus"></em></button>
+                                            </div>
+                                        </li>*@
+                                        <li>
+
+                                            <button class="btn btn-primary" id="@selector1">Add to Cart</button>
+                                        </li>
+                                    </ul>
+                                </div><!-- .product-meta -->
+                            </div><!-- .product-info -->
+                        </div><!-- .col -->
+                    </div><!-- .row -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        document.getElementById("@selector1").addEventListener('click', function () {
+            var Id = @item.Id;
+            var bodyFormData = new FormData()
+            bodyFormData.append("Id", Id)
+            axios.post('/Cart/AddToCart', bodyFormData)
+                .then(response => {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Added successfully'
+                    })
+                })
+                .catch(error => {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Added successfully'
+                    })
+                });
+        });
+    </script>
+}

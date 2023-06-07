@@ -1,0 +1,246 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PizzaStore.Areas.Identity.Data
+
+@inject SignInManager<PizzaStoreUser> SignInManager
+@inject UserManager<PizzaStoreUser> UserManager
+@using System.Security.Claims
+
+@{
+    //string Username = Context.Session.GetString("Username");
+    IgnoreSection("Scripts");
+}
+
+
+
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Page Title  -->
+    <title>Pizza Shop</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" href="~/css/dashlite.css">
+    <link rel="stylesheet" href="~/css/StyleSheet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+
+<body class="nk-body npc-invest bg-lighter">
+
+    <div class="nk-app-root">
+        <!-- wrap s -->
+        <div class="nk-wrap ">
+            <!-- main header s -->
+            <div class="nk-header nk-header-fluid is-dark">
+                <div class="container-xl wide-xl">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger me-sm-2 d-lg-none">
+                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="headerNav"><em class="icon ni ni-menu"></em></a>
+                        </div>
+                        <div class="nk-header-brand">
+                            <a asp-controller="Home" asp-action="Index" class="logo-link">
+                                @*<img class="logo-light logo-img" src="~/images/logo.png">*@
+                            </a>
+                        </div><!-- .nk-header-brand -->
+                        <div class="nk-header-menu" data-content="headerNav">
+                            <div class="nk-header-mobile">
+                                <div class="nk-header-brand">
+                                    <a asp-controller="Home" asp-action="Index" class="logo-link">
+                                    </a>
+                                </div>
+                                <div class="nk-menu-trigger me-n2">
+                                    <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="headerNav"><em class="icon ni ni-arrow-left"></em></a>
+                                </div>
+                            </div>
+
+                            @*-------------------------------- THIS IS THE NAV BAR -------------------------------------*@
+
+                            <ul class="nk-menu nk-menu-main ui-s2">
+                                <li class="nk-menu-item">
+                                    <a asp-controller="Products" asp-action="Index" class="nk-menu-link page-link">
+                                        <span class="nk-menu-text">Shop</span>
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <li class="nk-menu-item">
+                                        <a asp-controller="Orders" asp-action="Index" class="nk-menu-link page-link">
+                                            <span class="nk-menu-text">My Orders</span>
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+
+                                    
+                                }
+                                <li class="nk-menu-item">
+                                    <a asp-action="Index" asp-controller="AboutUs" class="nk-menu-link page-link">
+                                        <span class="nk-menu-text">About US</span>
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                                @*-------------------------------- THIS IS THE NAV BAR -------------------------------------*@
+
+                            </ul><!-- .nk-menu -->
+                        </div><!-- .nk-header-menu -->
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
+                                <li class="dropdown notification-dropdown">
+                                    <a asp-controller="Cart" asp-action="Index" class="nk-quick-nav-icon">
+
+                                        @*Add this class if the cart got items
+                                        icon-status icon-status-info*@ 
+                                        
+                                        <em class="icon ni ni-cart"></em>
+                                    </a>
+                                </li><!-- .dropdown -->
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <li class="dropdown user-dropdown order-sm-first">
+                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                            <div class="user-toggle">
+                                                <div class="user-avatar sm">
+                                                    <em class="icon ni ni-user-alt"></em>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-end dropdown-menu-s1 is-light">
+                                            <div class="dropdown-inner">
+                                                <ul class="link-list">
+                                                    <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                                                    <li><a asp-area="Identity" asp-page="/Account/Manage/Email"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                                    @*<li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>*@
+                                                    @*<li><a class="dark-mode-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>*@
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown-inner">
+                                                <ul class="link-list">
+                                                    <li>
+                                                        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                                            <button id="logout" type="submit" class="menu-link btn btn-outline-primary ms-2 ms-md-0"><em class="icon ni ni-signout"></em><span>Sign out</span></button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li><!-- .dropdown -->
+                                }
+                                else
+                                {
+                                    <li class="dropdown user-dropdown">
+                                        <a class="btn btn-primary px-3 py-1" id="login" asp-area="Identity" asp-page="/Account/Login">
+                                            log in
+                                        </a>
+                                    </li>
+                                }
+                            </ul><!-- .nk-quick-nav -->
+                        </div><!-- .nk-header-tools -->
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header e -->
+            <!-- content s -->
+            <div class="nk-content nk-content-fluid">
+                <div class="container-xl wide-xl">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content e -->
+            <!-- footer s -->
+            <div class="nk-footer nk-footer-fluid bg-lighter">
+                <div class="container-xl">
+                    <div class="nk-footer-wrap">
+                        <div class="nk-footer-copyright">
+                            &copy; 2022 DashLite. Template by <a href="https://softnio.com" target="_blank">Softnio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer e -->
+        </div>
+        <!-- wrap e -->
+    </div>
+    <!-- app-root e -->
+
+    <!-- JavaScript -->
+    <script src="~/js/bundle.js"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="~/js/app.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="nk-header-tools">
+    <ul class="nk-quick-nav">
+        <li class="dropdown notification-dropdown">
+            <a asp-controller="Cart" asp-action="Index" class="dropdown-toggle nk-quick-nav-icon">
+                <div class="icon-status icon-status-info"><em class="icon ni ni-cart"></em></div>
+            </a>
+        </li>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="dropdown user-dropdown">
+                <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
+                    <div class="user-toggle">
+                        <div class="user-avatar sm">
+                            <em class="icon ni ni-user-alt"></em>
+                        </div>
+                    </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-md dropdown-menu-end">
+                    <div class="dropdown-inner">
+                        <ul class="link-list">
+                            <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                            <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-inner">
+                        <ul class="link-list">
+                            <li>
+                                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    <button id="logout" type="submit" class="menu-link btn btn-outline-primary ms-2 ms-md-0"><em class="icon ni ni-signout"></em><span>Sign out</span></button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        }
+        else
+        {
+            <li class="dropdown user-dropdown">
+                <a class="btn btn-primary px-3 py-1" id="login" asp-area="Identity" asp-page="/Account/Login">
+                    log in
+                </a>
+            </li>
+        }
+    </ul>
+</div>*@

@@ -1,0 +1,38 @@
+﻿    @model IEnumerable<PizzaStore.Models.Order>
+
+
+
+    <section class="section section-feature pb-0">
+        <div class="container w-md-70">
+            <div class="card card-bordered card-preview">
+                <div class="card-inner">
+                <table class="datatable-init-export nowrap table" data-export-title="Exporter">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Number</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th> &nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.OrderNumber</td>
+                                    <td>@item.OrderStatus</td>
+                                    <td>@item.CreatedDate.Date</td>
+                                    <td class="text-center">
+                                    <a asp-action="DeleteOrder" asp-route-orderId="@item.Id" asp-controller="OrderDetails">delete</a>
+                                    <a asp-action="OrderDetails" asp-route-orderId="@item.Id" asp-controller="OrderDetails">more</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- .card-preview -->
+        </div>
+    </section>

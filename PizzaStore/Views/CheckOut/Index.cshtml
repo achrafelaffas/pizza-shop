@@ -1,0 +1,149 @@
+﻿@model Payement
+@*<div class="row">
+    <div class="col col-md-5 col-12">*@
+        <div class="card-inner-group">
+            <div class="card-inner p-0">
+                <div class="card card-bordered p-4">
+                    <h5 class="mb-3">Card information</h5>
+                    <form asp-action="Index">
+                        <div class="form-group">
+                            <div class="form-control-wrap">
+                                <input type="text" asp-for="NameOnTheCard" class="form-control form-control-xl form-control-outlined" id="NameOnTheCard" name="NameOnTheCard" />
+                                <label class="form-label-outlined" asp-for="NameOnTheCard">Name on the card</label>
+                                <span asp-validation-for="NameOnTheCard" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-control-wrap">
+                                <input type="number" asp-for="CardNumber" class="form-control form-control-xl form-control-outlined" id="CardNumber" name="CardNumber" />
+                                <label class="form-label-outlined" asp-for="CardNumber">Card number</label>
+                                <span asp-validation-for="CardNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-6">
+                                <div class="form-group">
+                                    <div class="form-control-wrap focused">
+                                        <div class="form-icon form-icon-right"></div>
+                                        <input type="month" data-date-format="mm/yyyy" asp-for="ExpirationDate" class="form-control form-control-xl form-control-outlined" id="ExpirationDate" name="ExpirationDate" />
+                                        <label class="form-label-outlined" asp-for="ExpirationDate">Expiration Date</label>
+                                        <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-6">
+                                <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <input type="number" asp-for="CVV" class="form-control form-control-xl form-control-outlined" id="CVV" name="CVV" />
+                                        <label class="form-label-outlined" asp-for="CVV">CVV</label>
+                                        <span asp-validation-for="CVV" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="saveOrder" class="btn btn-primary btn-lg btn-block mt-3 mb-3">Pay</button>
+                        <a asp-action="Index" asp-controller="Products" class="btn btn-outline-primary btn-lg btn-block">Continue Shopping</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        @*</div>
+    <div class="col col-12 col-md-7">
+        <div class="card card-bordered mt-3 mt-md-0 p-4">
+            @{
+                double subtotal = 0;
+                double tax = 0.2;
+                double total = 0;
+                foreach (var item in Model.Items)
+                {
+                    subtotal += (item.Quantity * item.Product.Price);
+                }
+
+                double taxAmount = Math.Round(subtotal * tax, 2);
+                total = Math.Round(taxAmount + subtotal, 2);
+            }
+            
+           
+            
+            <div class="nk-iv-wg2">
+            <div class="nk-iv-wg2-title">
+                <h6 class="title">The sum up of your order <em class="icon ni ni-info text-primary"></em></h6>
+            </div>
+            <div class="nk-iv-wg2-text">
+                <div class="nk-iv-wg2-amount ui-v2">My Order</div>
+                <ul class="nk-iv-wg2-list">
+                    <li>
+                        <span class="item-label">Subtotal</span><span class="item-value">
+                            $@subtotal
+                        </span>
+                    </li>
+                    <li>
+                        <span class="item-label">Tax</span><span class="item-value">
+                            $@taxAmount
+                        </span>
+                    </li>
+                    <li><span class="item-label">Delivery</span><span class="item-value">Free</span></li>
+                    <li class="total ">
+                        <span class="item-label">Total</span>
+                        <span class="item-value text-primary">
+                            $@total
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>*@
+
+
+
+@*<script>
+    document.getElementById('saveOrder').addEventListener('click', function () {
+        axios.post('/Cart/ConfirmOrder')
+            .then(res => {
+                console.log("no error happend");
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Order Placed successfully'
+                })
+                window.location.href = '/CheckOut/Index';
+            })
+            .catch(err => {
+                console.log("error happend");
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please add items to your cart'
+                })
+            });
+    });
+</script>*@

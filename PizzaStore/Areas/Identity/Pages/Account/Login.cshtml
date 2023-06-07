@@ -1,0 +1,89 @@
+﻿@page
+@model LoginModel
+@*<section class="section section-service pb-0 mb-7" id="service">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <h4>Login</h4>
+            <div class="container-sm w-40 mt-5 ">
+                <form id="account" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                        <label asp-for="Input.Email" class="form-label"></label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                        <label asp-for="Input.Password" class="form-label"></label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <div class="checkbox mb-3">
+                            <label asp-for="Input.RememberMe" class="form-label">
+                                <input class="form-check-input" asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <button id="login-submit" type="submit" class="btn btn-lg btn-primary mx-3">Log in</button>
+                        <a class="btn btn-outline-primary btn-lg" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register</a>
+                    </div>
+                    <a id="forgot-password" asp-page="./ForgotPassword"><u>Forgot your password?</u></a> or
+                    <a id="resend-confirmation" asp-page="./ResendEmailConfirmation"><u>Resend email confirmation</u></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>*@
+
+<div class="nk-block nk-block-middle nk-auth-body  wide-xs">
+    <div class="card card-bordered">
+        <div class="card-inner card-inner-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content">
+                    <h4 class="nk-block-title">Sign In</h4>
+                    <div class="nk-block-des">
+                        <p>Access using your email and passcode.</p>
+                    </div>
+                </div>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <form id="account" method="post">
+                <div class="form-group">
+                    <div class="form-label-group">
+                        <label class="form-label" asp-for="Input.Email"></label>
+                    </div>
+                    <div class="form-control-wrap">
+                        <input type="text" asp-for="Input.Email" class="form-control form-control-lg" id="default-01" placeholder="Enter your email address or username">
+                    </div>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="form-label-group">
+                        <label class="form-label" asp-for="Input.Password"></label>
+                        <a class="link link-primary link-sm" href="html/pages/auths/auth-reset-v2.html">Forgot Code?</a>
+                    </div>
+                    <div class="form-control-wrap">
+                        <a href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">
+                            <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                            <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                        </a>
+                        <input type="password" asp-for="Input.Password"  class="form-control form-control-lg" id="password" placeholder="Enter your passcode">
+                    </div>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block" id="login-submit" type="submit">Sign in</button>
+                </div>
+            </form>
+            <div class="form-note-s2 text-center pt-4">
+                New on our platform? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" >Create an account</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
