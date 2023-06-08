@@ -50,21 +50,61 @@ namespace PizzaStore.Controllers
             return Json(cart);
         }
 
-        public IActionResult ModifyQte(int cartValue, int productId)
+        //public IActionResult ModifyQte(int cartValue, int productId)
+        //{
+        //    var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart");
+        //    if (cart == null) {
+        //        return RedirectToAction("index");
+        //    }
+        //    var cartItem = cart.Items.FirstOrDefault(x => x.Product.Id == productId);
+        //    if (cartItem != null)
+        //    {
+        //        cart.Items.Remove(cartItem);
+        //        cartItem.Quantity = cartValue;
+        //        cart.Items.Add(cartItem);
+        //        HttpContext.Session.SetObjectAsJson("Cart", cart);
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
+
+
+        public IActionResult RemoveOne(int productId)
         {
             var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart");
-            if (cart == null) {
+            if (cart == null)
+            {
                 return RedirectToAction("index");
             }
             var cartItem = cart.Items.FirstOrDefault(x => x.Product.Id == productId);
             if (cartItem != null)
             {
                 cart.Items.Remove(cartItem);
-                cartItem.Quantity = cartValue;
+                cartItem.Quantity--;
                 cart.Items.Add(cartItem);
                 HttpContext.Session.SetObjectAsJson("Cart", cart);
             }
-          
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult AddOne(int productId)
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<Cart>("Cart");
+            if (cart == null)
+            {
+                return RedirectToAction("index");
+            }
+            var cartItem = cart.Items.FirstOrDefault(x => x.Product.Id == productId);
+            if (cartItem != null)
+            {
+                cart.Items.Remove(cartItem);
+                cartItem.Quantity++;
+                cart.Items.Add(cartItem);
+                HttpContext.Session.SetObjectAsJson("Cart", cart);
+            }
+
             return RedirectToAction("Index");
         }
 

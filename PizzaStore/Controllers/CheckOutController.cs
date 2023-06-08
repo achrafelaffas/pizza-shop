@@ -37,6 +37,14 @@ namespace PizzaStore.Controllers
                 return View(payement);
             }
 
+            double total = 0;
+            foreach(CartItem item in cart.Items)
+            {
+                total += item.Product.Price * item.Quantity;
+            }
+
+            total = (total*0.2) + total;
+
             if (cart != null)
             {
                 var order = new Order
@@ -44,7 +52,7 @@ namespace PizzaStore.Controllers
                     OrderNumber = RandomStringGenerator.GenerateRandomString(10),
                     CreatedDate = DateTime.Now,
                     OrderStatus = "Pending",
-                    Total = 828,
+                    Total = Math.Round(total),
                     UserId = _user.GetUserId(this.User)
                 };
 

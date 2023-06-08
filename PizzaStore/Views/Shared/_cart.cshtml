@@ -9,7 +9,7 @@
                 <table class="nk-tb-list nk-tb-ulist text-center">
                     <thead>
                         <tr class="nk-tb-item nk-tb-head bg-white sticky-header text-center">
-                            <th><span class="d-md-block d-none text-lg-start">Photo</span></th>
+                            <th><span class="d-md-block d-none">Photo</span></th>
                             <th><span class="sub-text">Name</span></th>
                             <th>
                                 <span class="sub-text">Quantity</span>
@@ -27,9 +27,10 @@
                         {
                             @foreach (var item in Model.Items)
                             {
-                                string selector = "input" + item.Product.Id;
+                                string min = "min" + item.Product.Id;
+                                string plus = "plus" + item.Product.Id;
                                 <tr class="nk-tb-item">
-                                    <td>
+                                    <td class="d-flex align-items-center justify-content-center">
                                         <img height="70" class="d-md-block d-none " src="~/images/@item.Product.Photo" />
                                     </td>
                                     <td>
@@ -39,31 +40,42 @@
                                         @*<input type="number" id="@selector" class="form-control" value="@item.Quantity" />*@
 
                                         <div class="form-control-wrap number-spinner-wrap">
-                                            <button class="btn btn-icon btn-outline-light number-spinner-btn number-minus" data-number="minus">
+                                            <button id="@min" class="btn btn-icon btn-outline-light number-spinner-btn number-minus" data-number="minus">
                                                 <em class="icon ni ni-minus"></em>
                                             </button>
-                                            <input type="number" class="form-control number-spinner" id="@selector" value="@item.Quantity">
-                                            <button class="btn btn-icon btn-outline-light number-spinner-btn number-plus" data-number="plus">
+                                            <input type="number" class="form-control number-spinner" value="@item.Quantity">
+                                            <button id="@plus" class="btn btn-icon btn-outline-light number-spinner-btn number-plus" data-number="plus">
                                                 <em class="icon ni ni-plus"></em>
                                             </button>
                                         </div>
 
                                         <script>
-                                            document.getElementById("@selector").addEventListener('input', (event) => {
-                                                var cartValue = event.target.value;
+                                            document.getElementById("@min").addEventListener('click', (event) => {
                                                 var productId = @item.Product.Id;
-                                                var bodyFormData = new FormData()
-                                                bodyFormData.append("cartValue", cartValue)
-                                                bodyFormData.append("productId", productId)
-                                                if (cartValue >= 0 && cartValue <= 10) {
-                                                    axios.post('/Cart/ModifyQte', bodyFormData)
+                                                var bodyFormData = new FormData();
+                                                bodyFormData.append("productId", productId);
+                                                    axios.post('/Cart/RemoveOne', bodyFormData)
                                                         .then(response => {
                                                             console.log(response.data);
+                                                            location.reload();
                                                         })
                                                         .catch(error => {
                                                             console.error(error);
                                                         });
-                                                }
+                                            });
+
+                                            document.getElementById("@plus").addEventListener('click', (event) => {
+                                                var productId = @item.Product.Id;
+                                                var bodyFormData = new FormData();
+                                                bodyFormData.append("productId", productId)
+                                                    axios.post('/Cart/AddOne', bodyFormData)
+                                                        .then(response => {
+                                                            console.log(response.data);
+                                                        location.reload();
+                                                        })
+                                                        .catch(error => {
+                                                            console.error(error);
+                                                        });
                                             });
                                         </script>
                                     </td>

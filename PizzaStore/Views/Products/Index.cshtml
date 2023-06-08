@@ -5,32 +5,26 @@
 }
 
     <div class="container">
-        <div class="row  g-gs">
+        <div class="row">
             @foreach (var item in Model)
             {
                 string selector = "modal" + @item.Id;
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="card card-bordered product-card">
-                        <div class="product-thumb">
-                            <a class="image-container" data-bs-toggle="modal" data-bs-target="#@selector" style="cursor: pointer">
-                                <img class="card-img-top" src="~/images/@item.Photo" />
-                            </a>
-                            <ul class="product-actions">
-                                <li><a id="@item.Id" style="cursor:pointer"><em class="icon ni ni-cart h3 text-white"></em></a></li>
-                            </ul>
-                        </div>
-                       
-                        <div class="card-inner text-center">
 
-                            <h5 class="product-title text-wrap">@Html.DisplayFor(modelItem => item.Name)</h5>
-                            <div class="product-price text-primary"><small class="text-muted del fs-13px">$40</small> $@Html.DisplayFor(modelItem => item.Price)</div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12 text-center mt-3">
+                <div class="pricing pricing-s1 card card-shadow round-xl">
+                    <div class="card-inner card-inner-lg">
+                        <h5 class="pricing-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                        <a class="image-container" data-bs-toggle="modal" data-bs-target="#@selector" style="cursor: pointer">
+                            <img class="card-img-top" src="~/images/@item.Photo" />
+                        </a>
+                        <h2 class="pricing-amount">$@Html.DisplayFor(modelItem => item.Price)</h2>
+                        <div class="pricing-action">
+                            <a class="btn btn-primary" id="@item.Id"><span><em class="icon ni ni-cart h2 text-white"></em></span></a>
                         </div>
                     </div>
                 </div>
-
-                <!-- .col -->
-
-
+            </div>
+     
                 <script>
                     document.getElementById(@item.Id).addEventListener('click', function () {
                         var Id = @item.Id;
@@ -78,6 +72,11 @@
             }
         </div><!-- .row -->
     </div><!-- .container -->
+
+
+
+
+
 @foreach (var item in Model)
 {
 
@@ -177,3 +176,26 @@
         });
     </script>
 }
+
+
+
+
+
+@*<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+    <div class="card card-bordered product-card">
+        <div class="product-thumb">
+            <a class="image-container" data-bs-toggle="modal" data-bs-target="#@selector" style="cursor: pointer">
+                <img class="card-img-top" src="~/images/@item.Photo" />
+            </a>
+            <ul class="product-actions">
+                <li><a id="@item.Id" style="cursor:pointer"><em class="icon ni ni-cart h3 text-white"></em></a></li>
+            </ul>
+        </div>
+
+        <div class="card-inner text-center">
+
+            <h5 class="product-title text-wrap">@Html.DisplayFor(modelItem => item.Name)</h5>
+            <div class="product-price text-primary"><small class="text-muted del fs-13px">$40</small> $@Html.DisplayFor(modelItem => item.Price)</div>
+        </div>s
+    </div>
+</div>*@
