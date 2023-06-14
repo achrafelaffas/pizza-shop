@@ -1,8 +1,19 @@
 ﻿@page
 @model ConfirmEmailChangeModel
-@{
-    ViewData["Title"] = "Confirm email change";
-}
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="nk-block nk-block-middle nk-auth-body">
+    <div class="brand-logo pb-5">
+        @* <a href="html/index.html" class="logo-link">
+        <img class="logo-light logo-img logo-img-lg" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
+        <img class="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
+        </a>*@
+    </div>
+    <div class="nk-block-head">
+        <div class="nk-block-head-content">
+            <h3 class="nk-block-title">Email has been updated</h3>
+            <div class="nk-block-des text-success">
+                <a asp-area="Identity" asp-page="/Account/Manage/Email" class="btn btn-primary">Go to settings</a>
+            </div>
+        </div>
+    </div>
+</div>

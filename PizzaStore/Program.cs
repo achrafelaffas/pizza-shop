@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PizzaStore.Areas.Identity.Data;
 using PizzaStore.Data;
+using PizzaStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PizzaStoreContextConnection") ?? throw new InvalidOperationException("Connection string 'PizzaStoreContextConnection' not found.");
@@ -11,8 +10,10 @@ var connectionString = builder.Configuration.GetConnectionString("PizzaStoreCont
 builder.Services.AddDbContext<PizzaStoreContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<PizzaStoreUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<PizzaStoreUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<PizzaStoreContext>();
+
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -62,7 +62,7 @@
                 <div class="form-group">
                     <div class="form-label-group">
                         <label class="form-label" asp-for="Input.Password"></label>
-                        <a class="link link-primary link-sm" href="html/pages/auths/auth-reset-v2.html">Forgot Code?</a>
+                        <a class="link link-primary link-sm" asp-page="./ForgotPassword">Forgot Code?</a>
                     </div>
                     <div class="form-control-wrap">
                         <a href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">
@@ -72,6 +72,10 @@
                         <input type="password" asp-for="Input.Password"  class="form-control form-control-lg" id="password" placeholder="Enter your passcode">
                     </div>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" asp-for="Input.RememberMe" />
+                    <label class="custom-control-label" asp-for="Input.RememberMe">@Html.DisplayNameFor(m => m.Input.RememberMe)</label>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block" id="login-submit" type="submit">Sign in</button>

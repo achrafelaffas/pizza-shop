@@ -70,6 +70,12 @@
                                         </a>
                                     </li><!-- .nk-menu-item -->
 
+                                    <li class="nk-menu-item">
+                                        <a asp-controller="Profile" asp-action="Index" class="nk-menu-link page-link">
+                                            <span class="nk-menu-text">My Profile</span>
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+
                                     
                                 }
                                 <li class="nk-menu-item">
@@ -105,7 +111,7 @@
                                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-end dropdown-menu-s1 is-light">
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
-                                                    <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                                                    <li><a asp-controller="Profile" asp-action="Index"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
                                                     <li><a asp-area="Identity" asp-page="/Account/Manage/Email"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
                                                     @*<li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>*@
                                                     @*<li><a class="dark-mode-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>*@

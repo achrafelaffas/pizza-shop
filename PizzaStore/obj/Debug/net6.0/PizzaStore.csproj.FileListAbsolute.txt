@@ -278,3 +278,6 @@ C:\Users\achraf\Desktop\PizzaStore\PizzaStore\obj\Debug\net6.0\refint\PizzaStore
 C:\Users\achraf\Desktop\PizzaStore\PizzaStore\obj\Debug\net6.0\PizzaStore.pdb
 C:\Users\achraf\Desktop\PizzaStore\PizzaStore\obj\Debug\net6.0\PizzaStore.genruntimeconfig.cache
 C:\Users\achraf\Desktop\PizzaStore\PizzaStore\obj\Debug\net6.0\ref\PizzaStore.dll
+C:\Users\achraf\Desktop\PizzaStore\PizzaStore\bin\Debug\net6.0\MailKit.dll
+C:\Users\achraf\Desktop\PizzaStore\PizzaStore\bin\Debug\net6.0\MimeKit.dll
+C:\Users\achraf\Desktop\PizzaStore\PizzaStore\bin\Debug\net6.0\BouncyCastle.Crypto.dll
